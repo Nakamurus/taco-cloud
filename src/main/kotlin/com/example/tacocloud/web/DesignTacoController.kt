@@ -5,10 +5,12 @@ import com.example.tacocloud.Taco
 import com.example.tacocloud.TacoOrder
 import com.example.tacocloud.Type
 import lombok.extern.slf4j.Slf4j
+import mu.KotlinLogging
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
 import java.util.stream.Collectors
@@ -57,6 +59,18 @@ class DesignTacoController {
     @GetMapping
     fun showDesignForm(): String {
         return "design"
+    }
+
+    @PostMapping
+    fun processTaco(
+        taco: Taco,
+        @ModelAttribute tacoOrder: TacoOrder
+    ): String {
+        val logger = KotlinLogging.logger {}
+        logger.info("Processing taco: {} with ingredients {}", taco.name, taco.ingredients)
+
+        tacoOrder.addTaco(taco)
+        return "redirect:/orders/current"
     }
 
     fun filterByType(

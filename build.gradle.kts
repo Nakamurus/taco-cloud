@@ -23,6 +23,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.slf4j:slf4j-log4j12:2.0.0")
 	implementation("org.projectlombok:lombok:1.18.22")
+	implementation("io.github.microutils:kotlin-logging-jvm:2.1.20")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

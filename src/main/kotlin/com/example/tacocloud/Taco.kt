@@ -1,3 +1,6 @@
 package com.example.tacocloud
 
-data class Taco(val name: String = "", val ingredients: List<Ingredient> = listOf())
+data class Taco(
+    var name: String? = null,
+    var ingredients: List<Ingredient>? = null
+)
