@@ -1,13 +1,13 @@
 package com.example.tacocloud
 
 class TacoOrder(
-    val deliveryName: String,
-    val deliveryStreet: String,
-    val deliveryState: String,
-    val deliveryZip: String,
-    val ccNumber: String,
-    val ccExpiration: String,
-    val ccCvv: String,
+    val deliveryName: String = "",
+    val deliveryStreet: String = "",
+    val deliveryState: String = "",
+    val deliveryZip: String = "",
+    val ccNumber: String = "",
+    val ccExpiration: String = "",
+    val ccCvv: String = "",
     private val tacos: MutableList<Taco> = mutableListOf(),
 ) {
 
