@@ -9,10 +9,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.view
 
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.web.servlet.MockMvc
 
-@WebMvcTest(controllers = [HomeController::class])
+@WebMvcTest
 class HomeControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @Test

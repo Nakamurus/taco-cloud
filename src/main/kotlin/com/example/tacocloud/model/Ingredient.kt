@@ -1,4 +1,4 @@
-package com.example.tacocloud
+package com.example.tacocloud.model
 
 data class Ingredient(val id: String, val name: String, val type: Type)
 

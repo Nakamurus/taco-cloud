@@ -1,19 +1,21 @@
-package com.example.tacocloud.web
+package com.example.tacocloud.controller
 
-import com.example.tacocloud.Ingredient
-import com.example.tacocloud.Taco
-import com.example.tacocloud.TacoOrder
-import com.example.tacocloud.Type
+import com.example.tacocloud.model.Ingredient
+import com.example.tacocloud.model.Taco
+import com.example.tacocloud.model.TacoOrder
+import com.example.tacocloud.model.Type
 import lombok.extern.slf4j.Slf4j
 import mu.KotlinLogging
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
 import java.util.stream.Collectors
+import javax.validation.Valid
 
 
 @Slf4j
@@ -63,9 +65,13 @@ class DesignTacoController {
 
     @PostMapping
     fun processTaco(
-        taco: Taco,
+        @Valid taco: Taco, errors: Errors,
         @ModelAttribute tacoOrder: TacoOrder
     ): String {
+        if (errors.hasErrors()) {
+            return "design"
+        }
+
         val logger = KotlinLogging.logger {}
         logger.info("Processing taco: {} with ingredients {}", taco.name, taco.ingredients)
 

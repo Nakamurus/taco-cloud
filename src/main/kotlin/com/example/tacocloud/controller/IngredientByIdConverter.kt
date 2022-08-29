@@ -1,8 +1,7 @@
-package com.example.tacocloud.web
+package com.example.tacocloud.controller
 
-import com.example.tacocloud.Ingredient
-import com.example.tacocloud.Type
-import mu.KotlinLogging
+import com.example.tacocloud.model.Ingredient
+import com.example.tacocloud.model.Type
 import org.springframework.core.convert.converter.Converter
 import org.springframework.stereotype.Component
 
@@ -22,7 +21,7 @@ class IngredientByIdConverter(private final val ingredientMap: HashMap<String, I
         ingredientMap["SRCR"] = Ingredient("SRCR", "Sour Cream", Type.SAUCE)
     }
 
-    override fun convert(id: String):Ingredient? {
+    override fun convert(id: String): Ingredient? {
         return ingredientMap[id]
     }
 }
