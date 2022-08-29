@@ -21,6 +21,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+	implementation("com.h2database:h2")
 	implementation("org.slf4j:slf4j-log4j12:2.0.0")
 	implementation("org.projectlombok:lombok:1.18.24")
 	implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")

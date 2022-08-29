@@ -2,26 +2,17 @@ package com.example.tacocloud.controller
 
 import com.example.tacocloud.model.Ingredient
 import com.example.tacocloud.model.Type
+import com.example.tacocloud.repository.IngredientRepository
 import org.springframework.core.convert.converter.Converter
 import org.springframework.stereotype.Component
 
 
 @Component
-class IngredientByIdConverter(private final val ingredientMap: HashMap<String, Ingredient> = hashMapOf()): Converter<String, Ingredient> {
-    init {
-        ingredientMap["FLTO"] = Ingredient("FLTO", "Flour Tortilla", Type.WRAP)
-        ingredientMap["COTO"] = Ingredient("COTO", "Corn Tortilla", Type.WRAP)
-        ingredientMap["GRBF"] = Ingredient("GRBF", "Ground Beef", Type.PROTEIN)
-        ingredientMap["CARN"] = Ingredient("CARN", "Carnitas", Type.PROTEIN)
-        ingredientMap["TMTO"] = Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES)
-        ingredientMap["LETC"] = Ingredient("LETC", "Lettuce", Type.VEGGIES)
-        ingredientMap["CHED"] = Ingredient("CHED", "Cheddar", Type.CHEESE)
-        ingredientMap["JACK"] = Ingredient("JACK", "Monterrey Jack", Type.CHEESE)
-        ingredientMap["SLSA"] = Ingredient("SLSA", "Salsa", Type.SAUCE)
-        ingredientMap["SRCR"] = Ingredient("SRCR", "Sour Cream", Type.SAUCE)
-    }
+class IngredientByIdConverter(
+    private val ingredientRepository: IngredientRepository
+    ) :Converter<String, Ingredient> {
 
     override fun convert(id: String): Ingredient? {
-        return ingredientMap[id]
+        return ingredientRepository.findById(id)
     }
 }
