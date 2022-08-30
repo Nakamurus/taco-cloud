@@ -2,19 +2,24 @@ package com.example.tacocloud.model
 
 import com.example.tacocloud.model.Taco
 import org.hibernate.validator.constraints.CreditCardNumber
-import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Table
 import java.util.Date
+import javax.persistence.CascadeType
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.OneToMany
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
-@Table
+@Entity
 class TacoOrder(
 
     private val serialVersionUID: Long = 1L,
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null,
 
     @field:NotBlank(message = "Delivery name is required")
@@ -45,6 +50,7 @@ class TacoOrder(
 
     var placedAt: Date? = null,
 
+    @OneToMany(cascade = [CascadeType.ALL])
     var tacos: MutableList<Taco> = mutableListOf()
 ) {
     fun addTaco(taco: Taco) {
