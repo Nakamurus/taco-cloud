@@ -2,14 +2,21 @@ package com.example.tacocloud.model
 
 import com.example.tacocloud.model.Taco
 import org.hibernate.validator.constraints.CreditCardNumber
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
 import java.util.Date
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
+@Table
 class TacoOrder(
 
+    private val serialVersionUID: Long = 1L,
+
+    @Id
     var id: Long? = null,
+
     @field:NotBlank(message = "Delivery name is required")
     var deliveryName: String? = null,
 

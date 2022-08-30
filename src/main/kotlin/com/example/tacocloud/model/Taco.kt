@@ -1,10 +1,14 @@
 package com.example.tacocloud.model
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
 import java.util.Date
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
+@Table
 data class Taco(
 
+    @Id
     var id: Long? = null,
     var createdAt: Date = Date(),
 
