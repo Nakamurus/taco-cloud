@@ -14,9 +14,9 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
 @Entity
-class TacoOrder(
+class TacoOrder (
 
-    private val serialVersionUID: Long = 1L,
+    val serialVersionUID: Long = 1L,
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
