@@ -1,11 +1,9 @@
 package com.example.tacocloud.repository
 
 import com.example.tacocloud.model.Ingredient
+import org.springframework.data.repository.CrudRepository
 
-interface IngredientRepository {
-    fun findAll(): Iterable<Ingredient>
-
-    fun findById(id: String): Ingredient?
+interface IngredientRepository: CrudRepository<Ingredient, String> {
 
     fun save(ingredient: Ingredient): Ingredient
 }
