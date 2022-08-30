@@ -4,7 +4,8 @@ import com.example.tacocloud.model.TacoOrder
 import org.springframework.data.repository.CrudRepository
 
 interface OrderRepository: CrudRepository<TacoOrder, Long> {
-
     fun save(order: TacoOrder): TacoOrder
+
+    fun findByDeliveryZip(deliveryZip: String): List<TacoOrder>
 
 }
