@@ -2,11 +2,14 @@ package com.example.tacocloud.model
 
 import com.example.tacocloud.model.Taco
 import org.hibernate.validator.constraints.CreditCardNumber
+import java.util.Date
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
 class TacoOrder(
+
+    var id: Long? = null,
     @field:NotBlank(message = "Delivery name is required")
     var deliveryName: String? = null,
 
@@ -32,6 +35,8 @@ class TacoOrder(
 
     @field:Digits(integer=3, fraction=0, message = "Invalid CVV")
     var ccCVV: String? = null,
+
+    var placedAt: Date? = null,
 
     var tacos: MutableList<Taco> = mutableListOf()
 ) {

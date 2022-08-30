@@ -1,6 +1,7 @@
 package com.example.tacocloud.controller
 
 import com.example.tacocloud.model.TacoOrder
+import com.example.tacocloud.repository.OrderRepository
 import lombok.extern.slf4j.Slf4j
 import mu.KotlinLogging
 import org.springframework.stereotype.Controller
@@ -16,7 +17,7 @@ import javax.validation.Valid
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
-class OrderController {
+class OrderController(private val orderRepository: OrderRepository) {
 
     @GetMapping("/current")
     fun orderForm():String {
@@ -30,6 +31,7 @@ class OrderController {
         if (errors.hasErrors()) {
             return "orderForm"
         }
+        orderRepository.save(order)
         logger.info("Order submitted: {}", order.toString())
         sessionStatus.setComplete() // cleans up session, which holds TacoOrder object
 

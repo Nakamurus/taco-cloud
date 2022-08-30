@@ -4,6 +4,7 @@ import com.example.tacocloud.model.Ingredient
 import com.example.tacocloud.model.Taco
 import com.example.tacocloud.model.TacoOrder
 import com.example.tacocloud.model.Type
+import com.example.tacocloud.repository.IngredientRepository
 import lombok.extern.slf4j.Slf4j
 import mu.KotlinLogging
 import org.springframework.stereotype.Controller
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
 import java.util.stream.Collectors
+import java.util.stream.StreamSupport
 import javax.validation.Valid
 
 
@@ -22,22 +24,11 @@ import javax.validation.Valid
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
-class DesignTacoController {
+class DesignTacoController(private val ingredientRepository: IngredientRepository) {
 
     @ModelAttribute
     fun addIngredientsToModel(model: Model) {
-        val ingredients: List<Ingredient> = listOf(
-            Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
-            Ingredient("COTO", "Corn Tortilla", Type.WRAP),
-            Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
-            Ingredient("CARN", "Carnitas", Type.PROTEIN),
-            Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES),
-            Ingredient("LETC", "Lettuce", Type.VEGGIES),
-            Ingredient("CHED", "Cheddar", Type.CHEESE),
-            Ingredient("JACK", "Monterrey Jack", Type.CHEESE),
-            Ingredient("SLSA", "Salsa", Type.SAUCE),
-            Ingredient("SRCR", "Sour Cream", Type.SAUCE)
-        )
+        val ingredients: Iterable<Ingredient> = ingredientRepository.findAll()
 
         val types: Array<Type> = Type.values()
         types.forEach {
@@ -80,11 +71,10 @@ class DesignTacoController {
     }
 
     fun filterByType(
-        ingredients: List<Ingredient>,
+        ingredients: Iterable<Ingredient>,
         type: Type
     ): Iterable<Ingredient> {
-        return ingredients
-            .stream()
+        return StreamSupport.stream(ingredients.spliterator(), false)
             .filter { it.type == type }
             .collect(Collectors.toList())
     }
