@@ -8,6 +8,7 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
@@ -15,12 +16,6 @@ import javax.validation.constraints.Pattern
 
 @Entity
 class TacoOrder (
-
-    val serialVersionUID: Long = 1L,
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null,
 
     @field:NotBlank(message = "Delivery name is required")
     var deliveryName: String? = null,
@@ -51,8 +46,19 @@ class TacoOrder (
     var placedAt: Date? = null,
 
     @OneToMany(cascade = [CascadeType.ALL])
-    var tacos: MutableList<Taco> = mutableListOf()
+    var tacos: MutableList<Taco> = mutableListOf(),
+
+    @ManyToOne
+    var user: User? = null,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long? = null,
 ) {
+    companion object {
+        const val serialVersionUID: Long = 1L
+    }
+
     fun addTaco(taco: Taco) {
         this.tacos.add(taco)
     }
