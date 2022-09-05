@@ -1,11 +1,39 @@
-#tag::setDatabaseName[]
+variables:
+  - name: name
+    value: tacocloud
+
 spring:
-  datasource:
-    generate-unique-name: false
-    name: tacocloud
-#end::setDatabaseName[]
   jpa:
     properties:
       hibernate:
         globally_quoted_identifiers: true
         globally_quoted_identifiers_skip_column_definitions: true
+
+  security:
+    user:
+      name: nakamura
+      password: pass9999
+    datasource:
+      generate-unique-name: false
+      name: ${{ variables.name }}
+
+  taco:
+    orders:
+      pageSize: 10
+
+    discount:
+      codes:
+        abcdef: 10
+
+---
+spring:
+  profiles: prod
+
+  datasource:
+    url: jdbc:mysql://localhost/${{ variables.name }}
+    username: tacouser
+    password: tacopassword
+
+  logging:
+    level:
+      tacos: WARN

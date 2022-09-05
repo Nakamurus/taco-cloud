@@ -2,11 +2,15 @@ package com.example.tacocloud.controller
 
 import com.example.tacocloud.model.TacoOrder
 import com.example.tacocloud.model.User
+import com.example.tacocloud.props.OrderProps
 import com.example.tacocloud.repository.OrderRepository
 import lombok.extern.slf4j.Slf4j
 import mu.KotlinLogging
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -20,7 +24,10 @@ import javax.validation.Valid
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
-class OrderController(private val orderRepository: OrderRepository) {
+class OrderController(
+    private val orderRepository: OrderRepository,
+    private val props: OrderProps
+) {
 
     @GetMapping("/current")
     fun orderForm(
@@ -68,4 +75,18 @@ class OrderController(private val orderRepository: OrderRepository) {
         return "redirect:/"
     }
 
+    @GetMapping
+    fun ordersForUser(
+        @AuthenticationPrincipal user: User,
+        model: Model
+    ):String {
+        val pageable: Pageable = PageRequest.of(0, props.pageSize)
+        model.addAttribute("orders",
+            orderRepository.findByUserOrderByPlacedAtDesc(
+                user, pageable
+            )
+        )
+
+        return "orderList"
+    }
 }

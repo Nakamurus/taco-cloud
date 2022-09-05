@@ -10,6 +10,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
+import javax.persistence.PrePersist
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
@@ -61,5 +62,10 @@ class TacoOrder (
 
     fun addTaco(taco: Taco) {
         this.tacos.add(taco)
+    }
+
+    @PrePersist
+    fun placedAt() {
+        this.placedAt = Date()
     }
 }
