@@ -4,6 +4,8 @@ import com.example.tacocloud.model.Taco
 import com.example.tacocloud.repository.TacoRepository
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -28,7 +30,9 @@ class TacoController(
     }
 
     @GetMapping("/{id}")
-    fun tacoById(@PathVariable("id") id: Long): Taco? {
+    fun tacoById(@PathVariable("id") id: Long): ResponseEntity<Taco> {
         return tacoRepository.findById(id).orElse(null)
+            ?.let { ResponseEntity(it, HttpStatus.OK) } ?:
+            ResponseEntity(null, HttpStatus.NOT_FOUND)
     }
 }
