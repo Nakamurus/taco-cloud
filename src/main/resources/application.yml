@@ -3,6 +3,9 @@ variables:
     value: tacocloud
 
 spring:
+  data:
+    rest:
+      base-path: /data-api
   jpa:
     properties:
       hibernate:
