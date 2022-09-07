@@ -1,7 +1,7 @@
 package com.example.tacocloud.repository
 
 import com.example.tacocloud.model.Taco
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 
-interface TacoRepository: CrudRepository<Taco, Long> {
+interface TacoRepository: PagingAndSortingRepository<Taco, Long> {
 }
